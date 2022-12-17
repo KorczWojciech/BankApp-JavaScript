@@ -1,5 +1,6 @@
 const User = require("../model/user");
 const Transfer = require("../model/transfer");
+const {now} = require("mongoose");
 
 module.exports = async function transfer(req,res) {
     const { receiver, amount, title } = req.body;
@@ -19,11 +20,13 @@ module.exports = async function transfer(req,res) {
             if (senderBalance - amount < 0) {
                 res.status(409).send("Not enough money.");
             } else {
+                const date = now();
                 const transfer = await Transfer.create({
                     sender: senderAccountNumber,
                     receiver: receiverAccountNumber,
                     amount,
                     title,
+                    date: date
                 });
                 receiverBalance = receiverBalance + amount;
                 senderBalance = senderBalance - amount;
@@ -36,7 +39,7 @@ module.exports = async function transfer(req,res) {
                 await User.findByIdAndUpdate(req.user.user_id, {
                     balance: senderBalance.toString(),
                 });
-                res.status(200).send(receiverBalance.toString());
+                res.status(200).json(transfer);
             }
         }
     }
