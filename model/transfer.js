@@ -5,6 +5,7 @@ const transferSchema = new mongoose.Schema({
   receiver: { type: String },
   amount: { type: String },
   title: { type: String },
+  date:{type:Date}
 });
 
 module.exports = mongoose.model("transfer", transferSchema);
