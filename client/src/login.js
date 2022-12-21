@@ -1,5 +1,7 @@
-const React = require("react");
+import React from "react";
+import axios from "./api/axios";
 const { useState } = require("react");
+const LOGIN_URL = "/login";
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
@@ -7,7 +9,18 @@ const LoginForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Validate form and send login request
+    axios.post(LOGIN_URL, {
+      email,
+      password
+    })
+    .then((response) => {
+      console.log(response);
+    }
+    )
+    .catch((error) => {
+      console.log(error);
+    }
+    );
   };
 
   return (

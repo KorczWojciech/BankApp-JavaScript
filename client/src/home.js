@@ -39,7 +39,7 @@ const HomePage = () => {
         <div className="container mx-auto py-12 px-4 flex justify-center">
             <div className="flex justify-between items-center">
                 <a href="/signup" className="btn-blue rounded mr-4">
-                <button class="rounded-full">Zarejestruj się</button>
+                <button className="rounded-full">Zarejestruj się</button>
                 </a>
                 <a href="/login" className="btn btn-green rounded">
                     Masz już konto? Zaloguj się
