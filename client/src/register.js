@@ -1,6 +1,32 @@
 import React from 'react';
+import axios from "./api/axios";
+const { useState } = require("react");
+const REGISTER_URL = "/register";
 
 const RegistrationForm = () => {
+  const [first_name, setFirstName] = useState('');
+  const [last_name, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        axios.post(REGISTER_URL, {
+            first_name,
+            last_name,
+            email,
+            password
+        })
+        .then((response) => {
+            console.log(response);
+        }
+        )
+        .catch((error) => {
+            console.log(error);
+        }
+        );
+    };
+
   return (
     <div>
             <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 bg-gray-50">
@@ -12,7 +38,7 @@ const RegistrationForm = () => {
                     </a>
                 </div>
                 <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-md sm:rounded-lg">
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <div>
                             <label
                                 htmlFor="name"
@@ -25,6 +51,9 @@ const RegistrationForm = () => {
                                     type="text"
                                     name="first_name"
                                     className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                    value={first_name}
+                                    onChange={(event) => setFirstName(event.target.value)}
+                                    required
                                 />
                             </div>
                         </div>
@@ -40,6 +69,9 @@ const RegistrationForm = () => {
                                     type="text"
                                     name="last_name"
                                     className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                    value={last_name}
+                                    onChange={(event) => setLastName(event.target.value)}
+                                    required
                                 />
                             </div>
                         </div>
@@ -55,6 +87,9 @@ const RegistrationForm = () => {
                                     type="email"
                                     name="email"
                                     className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                    value={email}
+                                    onChange={(event) => setEmail(event.target.value)}
+                                    required
                                 />
                             </div>
                         </div>
@@ -70,6 +105,9 @@ const RegistrationForm = () => {
                                     type="password"
                                     name="password"
                                     className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                    value={password}
+                                    onChange={(event) => setPassword(event.target.value)}
+                                    required
                                 />
                             </div>
                         </div>
