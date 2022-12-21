@@ -18,7 +18,7 @@ const RegistrationForm = () => {
                                 htmlFor="name"
                                 className="block text-sm font-medium text-gray-700 undefined"
                             >
-                                Imie
+                                Imię
                             </label>
                             <div className="flex flex-col items-start">
                                 <input
