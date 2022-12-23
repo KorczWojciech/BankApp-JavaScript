@@ -5,6 +5,8 @@ import Header from './header';
 import Footer from './footer';
 import HomePage from './home';
 import RegistrationForm from './register';
+import ContactForm from './contact';
+import AboutUs from './aboutus';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 //Create a route for each page
@@ -17,6 +19,8 @@ function App() {
             <Route path="/" exact element={<HomePage/>} />
             <Route path="/login" element={<LoginForm/>} />
             <Route path="/signup" element={<RegistrationForm/>} />
+            <Route path="/contact" element={<ContactForm/>} />
+            <Route path="/about" element={<AboutUs/>} />
           </Routes>
         <Footer />
       </div>
