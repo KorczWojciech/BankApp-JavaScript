@@ -8,6 +8,8 @@ import RegistrationForm from './register';
 import ContactForm from './contact';
 import AboutUs from './aboutus';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import HistoryPage from "./history";
+import TransferPage from "./transfer";
 
 //Create a route for each page
 function App() {
@@ -21,6 +23,8 @@ function App() {
             <Route path="/signup" element={<RegistrationForm/>} />
             <Route path="/contact" element={<ContactForm/>} />
             <Route path="/about" element={<AboutUs/>} />
+            <Route path="/history"  element={<HistoryPage/>} />
+            <Route path="/transfer" element={<TransferPage/>} />
           </Routes>
         <Footer />
       </div>
