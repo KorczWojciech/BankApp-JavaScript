@@ -35,30 +35,30 @@ const HomePage = () => {
           Jesteśmy bankiem stworzonym na potrzeby projektu w technologii NodeJS oraz React.
         </p>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div class="bg-white p-8 shadow-md rounded-lg">
+          <a class="bg-white p-8 shadow-md rounded-lg " href="/transfer">
             <h2 class="text-xl font-bold text-gray-900 mb-4">
               Wykonuj przelewy
             </h2>
             <p class="text-gray-700 mb-4">
               Dzięki naszej aplikacji będziesz mógł wykonać przelewy między użytkownikami.
             </p>
-          </div>
-          <div class="bg-white p-8 shadow-md rounded-lg">
+          </a>
+          <a class="bg-white p-8 shadow-md rounded-lg" href="/history">
             <h2 class="text-xl font-bold text-gray-900 mb-4">
-              Oszczędzaj pieniądze
+              Zobacz historie przelewów
             </h2>
             <p class="text-gray-700 mb-4">
-              Wpłacaj pieniądze na swoje konta.
+              Kontroluj swoje przelewy
             </p>
-          </div>
-          <div class="bg-white p-8 shadow-md rounded-lg">
-            <h2 class="text-xl font-bold text-gray-900 mb-4">
-              Kredyty
-            </h2>
-            <p class="text-gray-700 mb-4">
-            Najniższe oprocentowanie na rynku kredytowym.
-            </p>
-          </div>
+          </a>
+          {/*<a class="bg-white p-8 shadow-md rounded-lg" href="/credit">*/}
+          {/*  <h2 class="text-xl font-bold text-gray-900 mb-4">*/}
+          {/*    Kredyty*/}
+          {/*  </h2>*/}
+          {/*  <p class="text-gray-700 mb-4">*/}
+          {/*  Najniższe oprocentowanie na rynku kredytowym.*/}
+          {/*  </p>*/}
+          {/*</a>*/}
           
         </div>
         <div class="container mx-auto py-12 px-4 flex justify-center">
