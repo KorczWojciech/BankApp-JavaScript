@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import axios from "./api/axios";
 import { useNavigate } from "react-router-dom";
-
+import { CookiesProvider, useCookies } from "react-cookie";
 const { useState } = require("react");
+
 const LOGIN_URL = "http://localhost:5000/login";
 
-
 const LoginForm = () => {
-	const [status, setStatus] = useState(undefined);
+  const [cookies, setCookie] = useCookies(["tokenCookie"]);
+  const [status, setStatus] = useState(undefined);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -19,20 +20,22 @@ const LoginForm = () => {
         password: password,
       })
       .then((response) => {
+        setCookie("tokenCookie", response.data["token"]);
         console.log(response);
       })
-		.then(() => {
-			setStatus({ type: 'success' })
-		})
-		.catch((error) => {
-			setStatus({ type: 'error', error });
-		});
-
+      .then(() => {
+        setStatus({ type: "logged" });
+      })
+      .catch((error) => {
+        setStatus({ type: "error", error });
+      });
   };
   let navigate = useNavigate();
-  const goTo=()=>{
-	  navigate("/");
-	}
+  const goTo = () => {
+    localStorage.setItem("token", cookies["tokenCookie"]);
+    localStorage.setItem("ifLogged", status.type);
+    navigate("/");
+  };
 
   return (
     <div class="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
@@ -78,10 +81,12 @@ const LoginForm = () => {
                   >
                     Hasło
                   </label>
-					{status?.type === 'success' && <button class="bg-green-700 text-white rounded-md px-2 py-1" onClick={goTo}>Zalogowałeś się prawidłowo. Przejdź do strony głównej!</button>}
-					{status?.type === 'error' && (
-						<p style={{color: "red"}}>Logowanie nie powiodło się :(</p>
-					)}
+                  {status?.type === "logged" && goTo()}
+                  {status?.type === "error" && (
+                    <p style={{ color: "red" }}>
+                      Logowanie nie powiodło się :(
+                    </p>
+                  )}
                 </div>
 
                 <div class="relative">

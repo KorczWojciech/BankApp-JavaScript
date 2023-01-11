@@ -1,19 +1,18 @@
 import React from "react";
 import axios from "./api/axios";
-
+import { CookiesProvider, useCookies } from "react-cookie";
 const HISTORY_URL = "http://localhost:5000/history";
 const { useState } = require("react");
-const tokenString =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjM5ZTE4ZWI2M2E3MDI4NzhkY2QwM2MyIiwiZW1haWwiOiJ0ZXN0NUBtYWlsLmNvbSIsImlhdCI6MTY3MzM3OTIzNiwiZXhwIjoxNjczMzg2NDM2fQ.XVfrsj7ggVPjUuPDSH4UcxejIU68a1C6FcQsdfX8Yyw";
 
 const HistoryPage = () => {
+  const [cookies, setCookie] = useCookies(["token"]);
   const [transfers, setTransfers] = useState(undefined);
   const [status, setStatus] = useState(undefined);
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
       .post(HISTORY_URL, {
-        token: tokenString,
+        token: localStorage.getItem("token"),
       })
       .then((response) => {
         setTransfers(response);
