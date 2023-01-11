@@ -1,59 +1,106 @@
-import React, { useState, useEffect } from 'react';
-
-
+import React from "react";
+import axios from "./api/axios";
+import { CookiesProvider, useCookies } from "react-cookie";
+const HISTORY_URL = "http://localhost:5000/history";
+const { useState } = require("react");
 
 const HistoryPage = () => {
+  const [cookies, setCookie] = useCookies(["token"]);
+  const [transfers, setTransfers] = useState(undefined);
+  const [status, setStatus] = useState(undefined);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    axios
+      .post(HISTORY_URL, {
+        token: localStorage.getItem("token"),
+      })
+      .then((response) => {
+        setTransfers(response);
+        console.log(response);
+      })
+      .then(() => {
+        setStatus({ type: "success" });
+      })
+      .catch((error) => {
+        setStatus({ type: "error", error });
+      });
+  };
 
-
-    return (
-        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-                <th scope="col" className="p-4">
-                    <div className="flex items-center">
-
-                    </div>
-                </th>
-                <th scope="col" className="px-6 py-3">
-                    Nr konta odbiorcy
-                </th>
-                <th scope="col" className="px-6 py-3">
-                    Kwota przelewu
-                </th>
-                <th scope="col" className="px-6 py-3">
-                    Tytuł przelewu
-                </th>
-                <th scope="col" className="px-6 py-3">
-                    Data przelewu
-                </th>
-
-            </tr>
-            </thead>
-            <tbody>
-            <tr
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                <td className="w-4 p-4">
-                    <div className="flex items-center">
-
-                    </div>
+  return (
+    <div className="relative">
+      <button
+        className="bg-blue-500 text-white rounded-md px-2 py-1"
+        onClick={handleSubmit}
+      >
+        Pokaż transakcje
+      </button>
+      <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <tr>
+            <th scope="col" className="p-4">
+              <div className="flex items-center"></div>
+            </th>
+            <th scope="col" className="px-6 py-3">
+              Nadawca
+            </th>
+            <th scope="col" className="px-6 py-3">
+              Odbiorca
+            </th>
+            <th scope="col" className="px-6 py-3">
+              Kwota przelewu
+            </th>
+            <th scope="col" className="px-6 py-3">
+              Tytuł przelewu
+            </th>
+            <th scope="col" className="px-6 py-3">
+              Data przelewu
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {status?.type === "success" &&
+            transfers.data.map((data, i) => (
+              <tr
+                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                key={i}
+              >
+                <td className="w-4 p-4"></td>
+                <td
+                  scope="row"
+                  className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap"
+                >
+                  {data.sender}
                 </td>
-                <th scope="row" className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-                    1111 1111 1111 1111 1111 1111 11
-                </th>
-                <td className="px-6 py-4">
-                    100 zł
+                <td
+                  scope="row"
+                  className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap"
+                >
+                  {data.receiver}
                 </td>
-                <td className="px-6 py-4">
-                    Tytuł
+                <td
+                  scope="row"
+                  className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap"
+                >
+                  {data.amount}
                 </td>
-                <td className="px-6 py-4">
-                    07.01.2023
+                <td
+                  scope="row"
+                  className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap"
+                >
+                  {data.title}
                 </td>
-
-            </tr>
-            </tbody>
-        </table>
-    )
+                <td
+                  scope="row"
+                  className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap"
+                >
+                  {data.date}
+                </td>
+              </tr>
+            ))}
+        </tbody>
+      </table>
+    </div>
+  );
 };
 
 export default HistoryPage;

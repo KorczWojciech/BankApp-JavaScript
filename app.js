@@ -12,7 +12,8 @@ const transfer = require("./middleware/transfer");
 const history = require("./middleware/history");
 const auth = require("./middleware/auth");
 const deleteTransfer = require("./middleware/deleteTransfer");
-
+const cors = require("cors");
+app.use(cors());
 // Register
 app.post("/register", register);
 //Przykładowa zawartość body:
@@ -42,7 +43,7 @@ app.post("/transfer", auth, transfer);
 // }
 
 //history - historia transakcji
-app.get("/history", auth, history);
+app.post("/history", auth, history);
 //Przykładowa zawartość body:
 // {
 //     "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjM5Yjc1ZTNlMGQxYTY3Yzc2MjAzNjEyIiwiZW1haWwiOiJ0ZXN0M0BtYWlsLmNvbSIsImlhdCI6MTY3MTMwMTIxNywiZXhwIjoxNjcxMzA4NDE3fQ.tdsgR12-GQHuak9EXQC6jhbHo4wIXo_DxoJPN1G87IY"
