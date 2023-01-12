@@ -34,6 +34,7 @@ const LoginForm = () => {
   const goTo = () => {
     localStorage.setItem("token", cookies["tokenCookie"]);
     localStorage.setItem("ifLogged", status.type);
+    alert("Zalogowano prawidłowo!");
     navigate("/");
   };
 

@@ -9,6 +9,7 @@ const Header = () => {
   const logout = () => {
     localStorage.setItem("ifLogged", "error");
     localStorage.removeItem("token");
+    alert("Wylogowałeś się!");
     navigate("/");
   };
   return (

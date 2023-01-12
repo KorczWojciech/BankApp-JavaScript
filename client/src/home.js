@@ -1,29 +1,29 @@
 import React, { useState, useEffect } from "react";
 
 const HomePage = () => {
-  // const [currencyData, setCurrencyData] = useState(null);
-  //
-  // const myHeaders = new Headers();
-  // myHeaders.append("apikey", "Kg3KWY0qC34F130cmY3XIOpnsrE92Z3x");
+  const [currencyData, setCurrencyData] = useState(null);
 
-  // const requestOptions = {
-  //   method: "GET",
-  //   redirect: "follow",
-  //   headers: myHeaders,
-  // };
+  const myHeaders = new Headers();
+  myHeaders.append("apikey", "Kg3KWY0qC34F130cmY3XIOpnsrE92Z3x");
 
-  // useEffect(() => {
-  //   const fetchCurrencyData = async () => {
-  //     const response = await fetch(
-  //       "https://api.apilayer.com/currency_data/live?source=PLN&currencies=EUR%2CGBP%2CUSD",
-  //       requestOptions
-  //     );
-  //     const data = await response.json();
-  //     setCurrencyData(data);
-  //   };
-  //
-  //   fetchCurrencyData();
-  // }, []);
+  const requestOptions = {
+    method: "GET",
+    redirect: "follow",
+    headers: myHeaders,
+  };
+
+  useEffect(() => {
+    const fetchCurrencyData = async () => {
+      const response = await fetch(
+        "https://api.apilayer.com/currency_data/live?source=PLN&currencies=EUR%2CGBP%2CUSD",
+        requestOptions
+      );
+      const data = await response.json();
+      setCurrencyData(data);
+    };
+
+    fetchCurrencyData();
+  }, []);
 
   return (
     <div class="bg-gray-100 h-screen flex flex-col">
@@ -78,34 +78,38 @@ const HomePage = () => {
         </div>
       </div>
       <div>
-        {/*  {currencyData && (*/}
-        {/*    <div className="bg-white p-8 shadow-md rounded-lg">*/}
-        {/*      <h2 className="text-xl font-bold text-gray-900 mb-4">*/}
-        {/*        Aktualne kursy walut*/}
-        {/*      </h2>*/}
-        {/*      <h4>Zobacz ile warte jest 1PLN w innych walutach:</h4>*/}
-        {/*      <br />*/}
-        {/*      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">*/}
-        {/*        <div className="text-center">*/}
-        {/*          <p className="text-2xl font-bold text-gray-900 mb-4">Euro</p>*/}
-        {/*          <p className="text-gray-700 mb-4">*/}
-        {/*            {currencyData.quotes.PLNEUR} EUR*/}
-        {/*          </p>*/}
-        {/*        </div>*/}
-        {/*        <div className="text-center">*/}
-        {/*          <p className="text-2xl font-bold text-gray-900 mb-4">Funt Brytyjski</p>*/}
-        {/*          <p className="text-gray-700 mb-4">*/}
-        {/*            {currencyData.quotes.PLNGBP} GBP*/}
-        {/*          </p>*/}
-        {/*        </div>*/}
-        {/*        <div className="text-center">*/}
-        {/*          <p className="text-2xl font-bold text-gray-900 mb-4">Dolar Amerykański</p>*/}
-        {/*          <p className="text-gray-700 mb-4">*/}
-        {/*            {currencyData.quotes.PLNUSD} USD*/}
-        {/*          </p>*/}
-        {/*        </div>*/}
-        {/*      </div>*/}
-        {/*    </div>*/}
+        {currencyData && (
+          <div className="bg-white p-8 shadow-md rounded-lg">
+            <h2 className="text-xl font-bold text-gray-900 mb-4">
+              Aktualne kursy walut
+            </h2>
+            <h4>Zobacz ile warte jest 1PLN w innych walutach:</h4>
+            <br />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="text-center">
+                <p className="text-2xl font-bold text-gray-900 mb-4">Euro</p>
+                <p className="text-gray-700 mb-4">
+                  {currencyData.quotes.PLNEUR} EUR
+                </p>
+              </div>
+              <div className="text-center">
+                <p className="text-2xl font-bold text-gray-900 mb-4">
+                  Funt Brytyjski
+                </p>
+                <p className="text-gray-700 mb-4">
+                  {currencyData.quotes.PLNGBP} GBP
+                </p>
+              </div>
+              <div className="text-center">
+                <p className="text-2xl font-bold text-gray-900 mb-4">
+                  Dolar Amerykański
+                </p>
+                <p className="text-gray-700 mb-4">
+                  {currencyData.quotes.PLNUSD} USD
+                </p>
+              </div>
+            </div>
+          </div>
         )}
       </div>
     </div>
