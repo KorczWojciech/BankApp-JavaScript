@@ -6,7 +6,7 @@ const { useState } = require("react");
 const LOGIN_URL = "http://localhost:5000/register";
 
 const RegistrationForm = () => {
-	const [status, setStatus] = useState(undefined);
+  const [status, setStatus] = useState(undefined);
   const [FirstName, setFirstName] = useState("");
   const [LastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -24,17 +24,18 @@ const RegistrationForm = () => {
       .then((response) => {
         console.log(response.data);
       })
-		.then(() => {
-			setStatus({ type: 'success' })
-		})
-		.catch((error) => {
-			setStatus({ type: 'error', error });
-		});
+      .then(() => {
+        setStatus({ type: "success" });
+      })
+      .catch((error) => {
+        setStatus({ type: "error", error });
+      });
   };
-	let navigate = useNavigate();
-	const goTo=()=>{
-		navigate("/");
-	}
+  let navigate = useNavigate();
+  const goTo = () => {
+    alert("Zarejestrowano prawidłowo! Możesz się zalogować!");
+    navigate("/");
+  };
 
   return (
     <div class="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
@@ -114,10 +115,12 @@ const RegistrationForm = () => {
                   >
                     Hasło
                   </label>
-					{status?.type === 'success' && <button class="bg-green-700 text-white rounded-md px-2 py-1" onClick={goTo}>Zarejestrowałeś się prawidłowo. Przejdź do strony głównej!</button>}
-					{status?.type === 'error' && (
-						<p style={{color: "red"}}>Rejestracja nie powiodła się :(</p>
-					)}
+                  {status?.type === "success" && goTo()}
+                  {status?.type === "error" && (
+                    <p style={{ color: "red" }}>
+                      Rejestracja nie powiodła się :(
+                    </p>
+                  )}
                 </div>
                 <div class="relative">
                   <button
