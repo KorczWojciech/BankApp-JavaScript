@@ -1,13 +1,15 @@
 import React from "react";
 import axios from "./api/axios";
 import { CookiesProvider, useCookies } from "react-cookie";
+import { useNavigate } from "react-router-dom";
 const HISTORY_URL = "http://localhost:5000/history";
+const DELETE_URL = "http://localhost:5000/delete";
 const { useState } = require("react");
 
 const HistoryPage = () => {
-  const [cookies, setCookie] = useCookies(["token"]);
   const [transfers, setTransfers] = useState(undefined);
   const [status, setStatus] = useState(undefined);
+  let navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
@@ -25,6 +27,23 @@ const HistoryPage = () => {
         setStatus({ type: "error", error });
       });
   };
+  function handleRemove(id) {
+    axios
+      .delete(DELETE_URL, {
+        data: {
+          id: id,
+        },
+      })
+      .then((response) => {
+        console.log(response);
+        alert("Przelew usunięty prawidłowo!");
+        window.location.reload(false);
+      })
+      .catch((error) => {
+        alert("nie udało się usunąć przelewu!");
+        setStatus({ type: "error", error });
+      });
+  }
 
   return (
     <div className="relative">
@@ -54,6 +73,9 @@ const HistoryPage = () => {
             </th>
             <th scope="col" className="px-6 py-3">
               Data przelewu
+            </th>
+            <th scope="col" className="px-6 py-3">
+              Usuń z historii
             </th>
           </tr>
         </thead>
@@ -94,6 +116,11 @@ const HistoryPage = () => {
                   className="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap"
                 >
                   {data.date}
+                </td>
+                <td scope="row">
+                  <button type="button" onClick={() => handleRemove(data._id)}>
+                    Usuń
+                  </button>
                 </td>
               </tr>
             ))}
