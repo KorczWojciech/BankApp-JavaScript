@@ -4,7 +4,7 @@ const HomePage = () => {
   const [currencyData, setCurrencyData] = useState(null);
 
   const myHeaders = new Headers();
-  myHeaders.append("apikey", "Kg3KWY0qC34F130cmY3XIOpnsrE92Z3x");
+  myHeaders.append("apikey", "cc6EHIgJIIV1KssSkf2CZDaXEqOlDoED");
 
   const requestOptions = {
     method: "GET",
